@@ -41,6 +41,8 @@ ap = argparse.ArgumentParser()
 ap.add_argument("--iterations", type=int, default=200)
 ap.add_argument("--prompts_per_rollout", type=int, default=16)
 ap.add_argument("--chunks", type=int, default=2, help="split each rollout to save memory (grads are added)")
+ap.add_argument("--resume_every", type=int, default=10,
+                help="save a resume point every N iterations (0 = never; each save writes ~1.6 GB to Drive)")
 args = ap.parse_args()
 
 # ---- the exact settings from the manual -------------------------------------
@@ -203,7 +205,7 @@ def main():
         history.append(rec)
         with open(LOG, "w", encoding="utf-8") as f:
             f.write("".join(json.dumps(r) + "\n" for r in history))
-        if (it + 1) % 10 == 0:                     # save every 10 iterations for resume
+        if args.resume_every and (it + 1) % args.resume_every == 0:   # resume point
             save_resume("ppo", it + 1, {"policy": policy}, opt, rec["minutes"])
         print({k: round(v, 4) if isinstance(v, float) else v for k, v in rec.items()})
         if it == 0:
