@@ -2,3 +2,8 @@ checkpoints/
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+
+# personal notes (not part of the submission)
+VIVA_NOTES.md
+docs/
+A3_RLHF_Kaggle.ipynb

@@ -16,7 +16,8 @@ Every loss (SFT, Bradley–Terry, PPO, DPO) is written by hand in PyTorch. We on
 `trl`, `peft`, `Trainer` or anything else that does RLHF for you.
 
 **Checkpoints:** _<Hugging Face / Google Drive link here>_  
-**Blog:** _<Medium link>_ · **LinkedIn:** _<post link>_  
+**Blog:** https://medium.com/@amamamukhtar17/we-rebuilt-the-rlhf-recipe-behind-chatgpt-on-a-135m-model-and-a-free-gpu-7cbf104e3d3e  
+**LinkedIn:** https://www.linkedin.com/posts/amama-mukhtar_we-rebuilt-the-rlhf-recipe-behind-chatgpt-activity-7526975327491907585-cnFF  
 **Team:** Amama Mukhtar · Zeenat Ijaz
 
 
@@ -110,7 +111,7 @@ Table 3 (300-post comparison) and Table 4 (human evaluation) are in `results/` o
 - PPO raised the reward-model score from about 0 to 1.85, but summaries got longer (35 → 44–47 tokens) and the KL to SFT grew to 30–40 nats. That's reward hacking: the reward model likes longer summaries.
 - DPO's implicit reward accuracy (61%) is close to the reward model's (63%) on the same 1000 pairs, with no reward model, no sampling and only two models in memory.
 
-Full analysis: `results/analysis.md` · viva notes: `VIVA_NOTES.md`
+Full analysis: `results/analysis.md`
 
 ## Correctness checks (Section 3.3)
 
