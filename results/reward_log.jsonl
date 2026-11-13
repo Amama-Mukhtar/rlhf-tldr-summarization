@@ -1,0 +1,9 @@
+{"step": 250, "train_loss": 0.6799, "train_acc": 0.604, "val_acc": 0.604, "minutes": 10.17}
+{"step": 500, "train_loss": 0.6495, "train_acc": 0.631, "val_acc": 0.626, "minutes": 20.41}
+{"step": 750, "train_loss": 0.6402, "train_acc": 0.6225, "val_acc": 0.64, "minutes": 30.68}
+{"step": 1000, "train_loss": 0.6227, "train_acc": 0.6535, "val_acc": 0.617, "minutes": 40.95}
+{"step": 1250, "train_loss": 0.6302, "train_acc": 0.6475, "val_acc": 0.631, "minutes": 51.22}
+{"step": 1500, "train_loss": 0.6133, "train_acc": 0.6555, "val_acc": 0.647, "minutes": 61.48}
+{"step": 1750, "train_loss": 0.5993, "train_acc": 0.676, "val_acc": 0.653, "minutes": 71.8}
+{"step": 2000, "train_loss": 0.614, "train_acc": 0.6575, "val_acc": 0.629, "minutes": 82.02}
+{"step": 2500, "train_loss": 0.5926, "train_acc": null, "val_acc": 0.631, "minutes": 102.64}
