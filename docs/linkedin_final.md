@@ -9,7 +9,7 @@ For our Generative AI course at FAST NUCES, Zeenat Ijaz and I trained SmolLM2-13
 
 Biggest lesson: a higher reward score isn't always a better summary. Our PPO model learned that the judge likes longer summaries and started writing longer ones. That's reward hacking, live on a T4.
 
-📝 Blog: [Medium link]
+📝 Blog: https://medium.com/@amamamukhtar17/we-rebuilt-the-rlhf-recipe-behind-chatgpt-on-a-135m-model-and-a-free-gpu-7cbf104e3d3e
 💻 Code: https://github.com/Amama-Mukhtar/rlhf-tldr-summarization
 
 #GenerativeAI #RLHF #MachineLearning #LLM #PPO #DPO #FASTNUCES
