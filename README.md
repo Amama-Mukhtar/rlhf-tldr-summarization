@@ -97,18 +97,40 @@ To use downloaded checkpoints, put them in `checkpoints/{sft,reward,ppo,dpo}` or
 |---|---|---|---|
 | SFT | 2.508 | val. loss: **2.445** | 71 min / Tesla T4 |
 | Reward model | 0.593 | pairwise acc.: **63.1%** | 103 min / Tesla T4 |
-| PPO | 0.136 | final mean r_φ: **1.85** | 47 min / Tesla T4 |
+| PPO | 0.136 | final mean r_φ: **0.97** (last iteration, 16 prompts; 10-iteration average ≈ 1.85) | 50 min / Tesla T4 |
 | DPO | 0.627 | implicit reward acc.: **61.1%** | 186 min / Tesla T4 |
 
-Table 3 (300-post comparison) and Table 4 (human evaluation) are in `results/` once `evaluate.py` and `human_eval.py` finish.
+### Table 3 – SFT vs PPO vs DPO (300 held-out posts, greedy decoding)
+| Policy | Mean r_φ | Win rate vs SFT | KL to SFT | Length | ROUGE-L |
+|---|---|---|---|---|---|
+| SFT | -0.475 | – | 0.000 | 29.7 | **0.253** |
+| PPO | 0.208 | 67.3% | 12.566 | 46.3 | 0.200 |
+| DPO | **0.438** | **70.7%** | 2.704 | 44.0 | 0.237 |
 
-| SFT | Reward model | DPO |
-|---|---|---|
-| ![](results/figures/1_sft_loss.png) | ![](results/figures/2_reward_model.png) | ![](results/figures/4_dpo.png) |
+### Table 4 – Human evaluation (30 posts, blind A/B/C, order shuffled)
+| | SFT picked | PPO picked | DPO picked |
+|---|---|---|---|
+| Amama | 16 | 1 | 13 |
+| Zeenat | 10 | 9 | 11 |
+| **Total (60 votes)** | **26** | **10** | **24** |
+
+Agreement between us: 11 / 30 (37%, random picking gives about 33%).
+
+**Limitations.** Agreement is close to chance, so Table 4 is weak evidence. Picks by position: Amama A/B/C = 19/7/4, Zeenat = 10/0/20, so position may have influenced them. The sheet with the first member's picks filled in was passed to the second member.
+
+| SFT | Reward model |
+|---|---|
+| ![](results/figures/1_sft_loss.png) | ![](results/figures/2_reward_model.png) |
+
+| PPO | DPO |
+|---|---|
+| ![](results/figures/3_ppo_curves.png) | ![](results/figures/4_dpo.png) |
 
 ### What we saw
 - The reward model is clearly above chance (63% vs 50%), well short of the paper's large models, as expected for 135M parameters and 20k pairs.
-- PPO raised the reward-model score from about 0 to 1.85, but summaries got longer (35 → 44–47 tokens) and the KL to SFT grew to 30–40 nats. That's reward hacking: the reward model likes longer summaries.
+- PPO raised the reward-model score, but by the end every summary hit the 48-token limit and the KL to SFT reached 46–53 nats. On the 300 eval posts its ROUGE-L fell from 0.253 to 0.200. This is consistent with reward hacking, with the reward model favouring longer summaries.
+- PPO got the fewest human votes in total (10/60), although the reward model scores it above SFT. This comes mostly from one member (1 vote vs 9 from the other), so it only suggests, and does not prove, that a higher r_φ is not a better summary.
+- DPO got the highest r_φ and win rate (70.7%) while staying much closer to SFT (KL 2.7 vs 12.6 for PPO).
 - DPO's implicit reward accuracy (61%) is close to the reward model's (63%) on the same 1000 pairs, with no reward model, no sampling and only two models in memory.
 
 Full analysis: `results/analysis.md`
@@ -121,7 +143,7 @@ All passed on our run:
 SFT mask check        : row 0..3 match=True (decoded = summary + <|endoftext|>)
 frozen check          : reference all frozen = True, reward model all frozen = True
 PPO iteration 1       : mean KL to reference = 0.000000
-PPO epoch 1 (every it): max |ratio-1| = 3e-05, clip fraction = 0.000
+PPO epoch 1 (every it): max |ratio-1| <= 1e-04 (last iterations), clip fraction = 0.000
 DPO first step loss   : 0.6931 (log 2 = 0.6931)
 ```
 
