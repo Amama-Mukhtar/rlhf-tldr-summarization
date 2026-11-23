@@ -1,0 +1,6 @@
+frozen check: reference all frozen = True, reward model all frozen = True
+iteration 1: mean KL to reference = 0.000000 (should be 0)
+iteration 1: epoch-0 max |ratio-1| = 3.05e-05, epoch-0 clip fraction = 0.000 (should be ~0 and 0)
+iteration 2: epoch-0 max |ratio-1| = 3.81e-05, epoch-0 clip fraction = 0.000 (should be ~0 and 0)
+iteration 3: epoch-0 max |ratio-1| = 3.81e-05, epoch-0 clip fraction = 0.000 (should be ~0 and 0)
+iteration 200: epoch-0 max |ratio-1| = 3.43e-05, epoch-0 clip fraction = 0.000 (should be ~0 and 0)

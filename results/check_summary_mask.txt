@@ -1,0 +1,17 @@
+# Summary-mask check (Task 1.3 / correctness check 1)
+
+row 0: match=True
+  decoded : ' Me and my sister were going to the park, put my sister in her carseat, left her there for thirty minutes, mom saved her from my ignorance, got grounded for a month.<|endoftext|>'
+  expected: ' Me and my sister were going to the park, put my sister in her carseat, left her there for thirty minutes, mom saved her from my ignorance, got grounded for a month.<|endoftext|>'
+
+row 1: match=True
+  decoded : " I started dating my friends ex after he told me he was ok with it, but then he decided he wasn't and we're no longer friends. Am I in the wrong here and what can I do to make it right?<|endoftext|>"
+  expected: " I started dating my friends ex after he told me he was ok with it, but then he decided he wasn't and we're no longer friends. Am I in the wrong here and what can I do to make it right?<|endoftext|>"
+
+row 2: match=True
+  decoded : " GF has been liking a bunch of images of a shirtless/almost naked guy she knows on instagram, I think it's disrespectful and want to know if I'm overreacting/how to talk to her.<|endoftext|>"
+  expected: " GF has been liking a bunch of images of a shirtless/almost naked guy she knows on instagram, I think it's disrespectful and want to know if I'm overreacting/how to talk to her.<|endoftext|>"
+
+row 3: match=True
+  decoded : ' I come from a family who is well-off and my co-workers found out so now they make constantly pick on me.<|endoftext|>'
+  expected: ' I come from a family who is well-off and my co-workers found out so now they make constantly pick on me.<|endoftext|>'

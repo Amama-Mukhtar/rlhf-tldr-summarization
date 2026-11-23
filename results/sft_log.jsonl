@@ -1,5 +1,5 @@
-{"step": 250, "train_loss": 2.8297, "val_loss": 2.488, "minutes": 14.25}
-{"step": 500, "train_loss": 2.6517, "val_loss": 2.4684, "minutes": 28.52}
-{"step": 750, "train_loss": 2.4218, "val_loss": 2.4584, "minutes": 42.84}
-{"step": 1000, "train_loss": 2.5999, "val_loss": 2.4506, "minutes": 57.11}
-{"step": 1250, "train_loss": 2.5076, "val_loss": 2.4448, "minutes": 71.44}
+{"step": 250, "train_loss": 2.8296746516573257, "val_loss": 2.4880277014427254, "minutes": 14.253284847736358}
+{"step": 500, "train_loss": 2.6516513018540935, "val_loss": 2.4683504958465776, "minutes": 28.521383027235668}
+{"step": 750, "train_loss": 2.4218014803799717, "val_loss": 2.458442822438877, "minutes": 42.83683238824209}
+{"step": 1000, "train_loss": 2.599900270857901, "val_loss": 2.450553979766503, "minutes": 57.11230594317119}
+{"step": 1250, "train_loss": 2.5075725432365172, "val_loss": 2.444761070283047, "minutes": 71.43710320790609}

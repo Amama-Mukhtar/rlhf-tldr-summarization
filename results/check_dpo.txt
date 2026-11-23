@@ -1,0 +1,2 @@
+frozen check: reference all frozen = True
+DPO first step loss = 0.6931 (should be log 2 = 0.6931)

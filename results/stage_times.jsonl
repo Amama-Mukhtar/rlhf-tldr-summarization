@@ -1,0 +1,6 @@
+{"stage": "SFT", "minutes": 0.8112800558408101, "final_train_loss": 2.6657341137266997, "gpu": "Tesla T4"}
+{"stage": "SFT", "minutes": 71.43719533284505, "final_train_loss": 2.5075725432365172, "gpu": "Tesla T4"}
+{"stage": "Reward model", "minutes": 102.63826306263606, "final_train_loss": 0.5925559157133102, "val_acc": 0.631, "gpu": "Tesla T4"}
+{"stage": "PPO", "minutes": 46.599431371688844, "final_train_loss": 0.1360965935885906, "final_mean_score": 1.8533849716186523, "gpu": "Tesla T4"}
+{"stage": "DPO", "minutes": 185.9023700038592, "final_train_loss": 0.6267131887078286, "val_implicit_acc": 0.611, "gpu": "Tesla T4"}
+{"stage": "PPO", "minutes": 49.531666203339896, "final_train_loss": 0.1364038921124302, "final_mean_score": 0.9707841873168945, "gpu": "Tesla T4"}

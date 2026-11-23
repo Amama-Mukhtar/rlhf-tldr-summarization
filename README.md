@@ -15,7 +15,7 @@ Every loss (SFT, Bradley–Terry, PPO, DPO) is written by hand in PyTorch. We on
 `AutoTokenizer`, `AutoModelForCausalLM` and `model.generate` from `transformers`. No
 `trl`, `peft`, `Trainer` or anything else that does RLHF for you.
 
-**Checkpoints:** _<Hugging Face / Google Drive link here>_  
+**Checkpoints:** https://drive.google.com/drive/folders/1pseQqnIXHZGRTvCz-w6zwg-Ria0fD98C  
 **Blog:** https://medium.com/@amamamukhtar17/we-rebuilt-the-rlhf-recipe-behind-chatgpt-on-a-135m-model-and-a-free-gpu-7cbf104e3d3e  
 **LinkedIn:** https://www.linkedin.com/posts/amama-mukhtar_we-rebuilt-the-rlhf-recipe-behind-chatgpt-activity-7526975327491907585-cnFF  
 **Team:** Amama Mukhtar · Zeenat Ijaz
@@ -38,6 +38,7 @@ human_eval.py       Section 3.2: blind 30-post sheet + Table 4
 plots.py            all figures
 results/            logs, tables, figures, summaries, human eval, analysis.md
 app/app.py          Gradio front end
+A3_RLHF_Summarization.ipynb   the whole pipeline in one notebook, with outputs
 colab_run.ipynb     one-click run on Colab
 ```
 
@@ -111,12 +112,18 @@ To use downloaded checkpoints, put them in `checkpoints/{sft,reward,ppo,dpo}` or
 | | SFT picked | PPO picked | DPO picked |
 |---|---|---|---|
 | Amama | 16 | 1 | 13 |
-| Zeenat | 10 | 9 | 11 |
-| **Total (60 votes)** | **26** | **10** | **24** |
+| Zeenat (round 2) | 7 | 7 | 16 |
+| **Total (60 votes)** | **23** | **8** | **29** |
 
-Agreement between us: 11 / 30 (37%, random picking gives about 33%).
+Agreement between us: **19 / 30 (63%)** (chance is about 33%).
 
-**Limitations.** Agreement is close to chance, so Table 4 is weak evidence. Picks by position: Amama A/B/C = 19/7/4, Zeenat = 10/0/20, so position may have influenced them. The sheet with the first member's picks filled in was passed to the second member.
+Round 1 (Zeenat): SFT 10, PPO 9, DPO 11; agreement 11 / 30 (37%).
+
+**Why two rounds.** In round 1 Zeenat's sheet showed Amama's picks and Zeenat never picked B, so Zeenat repeated the
+picks on a clean, reshuffled sheet (positions A/B/C = 10/12/8). The decision to repeat was made after seeing the round 1
+result, and Zeenat had already seen the posts; Zeenat chose the same model in both rounds on 17 / 30 posts. Amama was not
+repeated (positions 19/7/4). With 30 posts, treat this as a small, noisy check. In `human_eval.csv`, Zeenat's round 2
+picks are translated to the original letters.
 
 | SFT | Reward model |
 |---|---|
@@ -129,11 +136,19 @@ Agreement between us: 11 / 30 (37%, random picking gives about 33%).
 ### What we saw
 - The reward model is clearly above chance (63% vs 50%), well short of the paper's large models, as expected for 135M parameters and 20k pairs.
 - PPO raised the reward-model score, but by the end every summary hit the 48-token limit and the KL to SFT reached 46–53 nats. On the 300 eval posts its ROUGE-L fell from 0.253 to 0.200. This is consistent with reward hacking, with the reward model favouring longer summaries.
-- PPO got the fewest human votes in total (10/60), although the reward model scores it above SFT. This comes mostly from one member (1 vote vs 9 from the other), so it only suggests, and does not prove, that a higher r_φ is not a better summary.
+- PPO got the fewest human votes (8/60), although the reward model scores it above SFT. DPO got the most (29), SFT 23. The sample is small, so this suggests rather than proves that a higher r_φ is not a better summary.
 - DPO got the highest r_φ and win rate (70.7%) while staying much closer to SFT (KL 2.7 vs 12.6 for PPO).
 - DPO's implicit reward accuracy (61%) is close to the reward model's (63%) on the same 1000 pairs, with no reward model, no sampling and only two models in memory.
 
 Full analysis: `results/analysis.md`
+
+## Front end
+
+| Input | SFT | PPO and DPO |
+|---|---|---|
+| ![](app/screenshots/1_input.jpg) | ![](app/screenshots/2_sft.jpg) | ![](app/screenshots/3_ppo_dpo.jpg) |
+
+On this post: SFT +1.492, PPO -1.027, DPO +2.063. One example, not an average.
 
 ## Correctness checks (Section 3.3)
 
@@ -143,7 +158,7 @@ All passed on our run:
 SFT mask check        : row 0..3 match=True (decoded = summary + <|endoftext|>)
 frozen check          : reference all frozen = True, reward model all frozen = True
 PPO iteration 1       : mean KL to reference = 0.000000
-PPO epoch 1 (every it): max |ratio-1| <= 1e-04 (last iterations), clip fraction = 0.000
+PPO epoch 1 (every it): max |ratio-1| = 1.4e-04 over all iterations, clip fraction = 0.000
 DPO first step loss   : 0.6931 (log 2 = 0.6931)
 ```
 

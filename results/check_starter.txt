@@ -1,0 +1,16 @@
+SFT train/val: 20000 500
+Pref train/val: 20000 1000
+Eval posts: 300
+
+--- one SFT example ---
+n thirty minutes. My little sister was in a black car with no A/C in mid-70 degree weather for thirty minutes. She's was still alive, thankfully, but redfaced and crying.
+
+"Crud," my innocent mind thought.
+
+Suffice to say that I didn't leave the house for a while, let alone to go to the park.
+TL;DR:
+SUMMARY: ' Me and my sister were going to the park, put my sister in her carseat, left her there for thirty minutes, mom saved her from my ignorance, got grounded for a month.'
+
+SFT batch: (8, 440) prompt_lens [217, 383, 359, 396, 154, 401, 158, 304]
+Pref batch: (8, 410) (8, 429)
+Prompt batch: (8, 378) (left-padded)
